@@ -13,6 +13,8 @@ namespace TShirtCannon
     {
         public static void Main()
         {
+
+
             var casterDrive = new CasterDrive();
             // TODO: Move controller stuff to operator input class
             var controller = new GameController(UsbHostDevice.GetInstance());
@@ -21,6 +23,7 @@ namespace TShirtCannon
             var angleMotor = new TalonSRX(RobotMap.ANGLE_MOTOR);
 
             Debug.Print("Program started");
+
 
             while(true)
             {
@@ -32,7 +35,7 @@ namespace TShirtCannon
                 }
 
                 double turn = controller.GetAxis(2);
-                casterDrive.Drive(new Vector2(-controller.GetAxis(0) * 0.6, controller.GetAxis(1) * 0.6), -turn);
+                casterDrive.Drive(new Vector2(-controller.GetAxis(0), controller.GetAxis(1)) , -turn);
 
                 // put angle motor in brake mode for now
                 angleMotor.SetNeutralMode(NeutralMode.Brake);

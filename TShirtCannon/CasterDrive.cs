@@ -13,7 +13,7 @@ namespace TShirtCannon
             new CasterModule(RobotMap.BACK_DRIVE_MOTOR, RobotMap.BACK_TURN_MOTOR, new Vector2(0.0, -13.625), -183.0) //back
         };
 
-        private const double TURN_SCALING = 0.3;
+        private const double TURN_SCALING = 0.7;
 
         public void Drive (Vector2 translationVelocity, double turn)
         {
@@ -93,8 +93,8 @@ namespace TShirtCannon
 
         public void ApplyPowers(double scaleFactor)
         {
-            driveTalon.Set(ControlMode.PercentOutput, drivePower * scaleFactor);
-            turnTalon.Set(ControlMode.PercentOutput, turnPower * scaleFactor);
+            driveTalon.Set(ControlMode.PercentOutput, drivePower / scaleFactor);
+            turnTalon.Set(ControlMode.PercentOutput, turnPower / scaleFactor);
         }
     }
 }
