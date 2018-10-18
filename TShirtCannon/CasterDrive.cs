@@ -1,16 +1,15 @@
 using System;
+using CTRE.Phoenix.MotorControl.CAN;
+using CTRE.Phoenix.MotorControl;
 
 namespace TShirtCannon
 {
-    using CTRE.Phoenix.MotorControl.CAN;
-    using CTRE.Phoenix.MotorControl;
-
     class CasterDrive
     {
         public CasterModule[] casters = {
-            new CasterModule(RobotMap.LEFT_DRIVE_MOTOR, RobotMap.LEFT_TURN_MOTOR, new Vector2(-14.75, 13.625), -300.0), //left
-            new CasterModule(RobotMap.RIGHT_DRIVE_MOTOR, RobotMap.RIGHT_TURN_MOTOR, new Vector2(14.75, 13.625), -45.0), //right
-            new CasterModule(RobotMap.BACK_DRIVE_MOTOR, RobotMap.BACK_TURN_MOTOR, new Vector2(0.0, -13.625), -183.0) //back
+            new CasterModule(RobotMap.LEFT_DRIVE_MOTOR, RobotMap.LEFT_TURN_MOTOR, new Vector2(-14.75, 13.625), -289.672), //left
+            new CasterModule(RobotMap.RIGHT_DRIVE_MOTOR, RobotMap.RIGHT_TURN_MOTOR, new Vector2(14.75, 13.625), -77.206), //right
+            new CasterModule(RobotMap.BACK_DRIVE_MOTOR, RobotMap.BACK_TURN_MOTOR, new Vector2(0.0, -13.625), -276.680) //back
         };
 
         private const double TURN_SCALING = 0.7;

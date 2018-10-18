@@ -13,32 +13,33 @@ namespace TShirtCannon
     {
         public static void Main()
         {
-
-
             var casterDrive = new CasterDrive();
+
+            // uncomment this if you need to zero the swerves
+            /*while (true)
+            {
+                Debug.Print("Angle: " + casterDrive.casters[0].Angle + "\t" + casterDrive.casters[1].Angle + "\t" + casterDrive.casters[2].Angle);
+            }*/
+
+            var cannon = new Cannon();
             // TODO: Move controller stuff to operator input class
             var controller = new GameController(UsbHostDevice.GetInstance());
 
-            // TODO: move angle motor to a different class
-            var angleMotor = new TalonSRX(RobotMap.ANGLE_MOTOR);
-
             Debug.Print("Program started");
-
 
             while(true)
             {
-                Debug.Print("Input voltage: " + angleMotor.GetBusVoltage());
                 bool isEnabled = controller.GetButton(5);
-                if (isEnabled && controller.GetConnectionStatus() == CTRE.Phoenix.UsbDeviceConnection.Connected)
+                if (isEnabled && controller.GetConnectionStatus() == UsbDeviceConnection.Connected)
                 {
-                    CTRE.Phoenix.Watchdog.Feed();
+                    Watchdog.Feed();
                 }
 
-                double turn = controller.GetAxis(2);
-                casterDrive.Drive(new Vector2(-controller.GetAxis(0), controller.GetAxis(1)) , -turn);
+                double turn = -controller.GetAxis(2);
+                casterDrive.Drive(new Vector2(-controller.GetAxis(0), controller.GetAxis(1)) , turn);
 
-                // put angle motor in brake mode for now
-                angleMotor.SetNeutralMode(NeutralMode.Brake);
+                bool firing = isEnabled && controller.GetButton(6);
+                cannon.Update(firing);
             }
         }
     }

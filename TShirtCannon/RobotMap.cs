@@ -16,6 +16,8 @@ namespace TShirtCannon
 
         public const int REVOLVER_MOTOR = 11;
         public const int ANGLE_MOTOR = 5;
-        
+
+        public const int INDEXER_SOLENOID = 0;
+        public const int FIRING_SOLENOID = 1;
     }
 }
