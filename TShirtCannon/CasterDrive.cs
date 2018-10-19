@@ -52,7 +52,7 @@ namespace TShirtCannon
         private double drivePower;
         private double turnPower;
 
-        private const double ROTATE_SCALE_DOWN_POWER = 0.8;
+        private const double ROTATE_SCALE_DOWN_POWER = 1.5;
 
         public CasterModule(int driveMotorId, int turnMotorId, Vector2 center, double angleOffset)
         {
@@ -65,6 +65,11 @@ namespace TShirtCannon
 
             turnTalon.ConfigSelectedFeedbackSensor(FeedbackDevice.Analog);
             turnTalon.ConfigSetParameter(CTRE.Phoenix.LowLevel.ParamEnum.eFeedbackNotContinuous, 1.0f, 0);
+
+            driveTalon.SetNeutralMode(NeutralMode.Brake);
+            turnTalon.SetNeutralMode(NeutralMode.Brake);
+
+            driveTalon.ConfigOpenloopRamp(0.1f);
         }
 
         public double Angle
