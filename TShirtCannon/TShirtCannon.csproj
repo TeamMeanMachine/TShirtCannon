@@ -38,6 +38,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="RobotMap.cs" />
     <Compile Include="Units.cs" />
+    <Compile Include="Util\Command\Command.cs" />
+    <Compile Include="Util\Command\Scheduler.cs" />
+    <Compile Include="Util\Command\Subsystem.cs" />
+    <Compile Include="Util\HashSet.cs" />
+    <Compile Include="Util\Listener.cs" />
+    <Compile Include="Util\Toggler.cs" />
     <Compile Include="Vector2.cs" />
   </ItemGroup>
   <ItemGroup>
