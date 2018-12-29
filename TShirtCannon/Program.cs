@@ -6,12 +6,14 @@ using CTRE.Phoenix;
 using CTRE.Phoenix.MotorControl;
 using CTRE.Phoenix.Controller;
 using TShirtCannon.Util;
-
+using Math = System.Math;
 
 namespace TShirtCannon
 {
     public class Program
     {
+        static double leftMax = 0.0f, rightMax = 0.0f, backMax = 0.0f;
+
         public static void Main()
         {
             var casterDrive = new CasterDrive();
@@ -84,6 +86,13 @@ namespace TShirtCannon
                 //Debug.Print(controllerValues.pov +"");
                 //Debug.Print(dt +"");
                 //cannon.DebugPID();
+
+                /*
+                leftMax = Math.Max(leftMax, casterDrive.casters[0].TurnCurrent);
+                rightMax = Math.Max(rightMax, casterDrive.casters[1].TurnCurrent);
+                backMax = Math.Max(backMax, casterDrive.casters[2].TurnCurrent);
+                Debug.Print("Left: " + leftMax + "\tRight: " + rightMax + "\tBack: " + backMax);
+                */
             }
         }
     }

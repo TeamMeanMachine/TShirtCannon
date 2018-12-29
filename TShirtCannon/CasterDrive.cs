@@ -32,6 +32,19 @@ namespace TShirtCannon
             gyro.GetYawPitchRoll(gyroAngles);
             double gyroAngle = gyroAngles[0];
 
+            // adjust translationVelocity by gyroAngle before adding the rotation to it
+            double translationSize = translationVelocity.Length;
+            double translationAngle = Units.ToDegrees(Math.Atan2(translationVelocity.X, -translationVelocity.Y));
+
+            //Microsoft.SPOT.Debug.Print("stickAngle: " + translationAngle + "\tGyro: " + gyroAngle);
+
+            translationAngle -= gyroAngle;
+
+            translationVelocity.X = Math.Sin(Units.ToRadians(translationAngle)) * translationSize;
+            translationVelocity.Y = -Math.Cos(Units.ToRadians(translationAngle)) * translationSize;
+
+            //Microsoft.SPOT.Debug.Print("X: " + translationVelocity.X + "\tY: " + translationVelocity.Y);
+
             double max = 0.0;
             foreach(var caster in casters)
             {
@@ -106,14 +119,24 @@ namespace TShirtCannon
             }
         }
 
+        public double TurnCurrent
+        {
+            get
+            {
+                return turnTalon.GetOutputCurrent();
+            }
+        }
+
+        public double DriveCurrent
+        {
+            get
+            {
+                return driveTalon.GetOutputCurrent();
+            }
+        }
+
         public double ComputePowers(Vector2 translationVelocity, double rotationalVelocity, double gyroAngle)
         {
-            // adjust translationVelocity by gyroAngle before adding the rotation to it
-            //double translationSize = translationVelocity.Length;
-            //double translationAngle = Units.ToDegrees(Math.Atan2(translationVelocity.X, translationVelocity.Y)) - gyroAngle;
-            //translationVelocity.X = -Math.Sin(Units.ToRadians(translationAngle)) * translationSize;
-            //translationVelocity.Y = Math.Cos(Units.ToRadians(translationAngle)) * translationSize;
-
             Vector2 totalVelocity = normalizedRotationalVector * rotationalVelocity + translationVelocity;
             double power = totalVelocity.Length;
             double goalAngle = Units.ToDegrees(Math.Atan2(totalVelocity.X, totalVelocity.Y));
